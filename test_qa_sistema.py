@@ -19,8 +19,7 @@ class TestOficial:
     def test_precio_producto(self):
         self.driver.get(self.base + "catalogo.php")
         time.sleep(2)
-        actual = self.wait.until(EC.visibility_of_element_located(
-            (By.XPATH, "//h3[text()='Pollo a la canasta']/following-sibling::div[@class='precio']")))
+        actual = self.wait.until(EC.visibility_of_element_located((By.XPATH, "//h3[text()='Pollo a la canasta']/following-sibling::div[@class='precio']")))
         actual = actual.text
         esperado = "Bs 23.00"
         print(f"++++ ACTUAL CAPTURADO: {actual}")
@@ -30,10 +29,8 @@ class TestOficial:
     def test_carrito_sin_login(self):
         self.driver.get(self.base + "catalogo.php")
         time.sleep(2)
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//h3[text()='Pollo a la canasta']/following-sibling::button[@class='btn']"))).click()
-        actual = self.wait.until(EC.visibility_of_element_located(
-            (By.XPATH, "//div[@class='alerta-login']")))
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//h3[text()='Pollo a la canasta']/following-sibling::button[@class='btn']"))).click()
+        actual = self.wait.until(EC.visibility_of_element_located((By.XPATH, "//div[@class='alerta-login']")))
         actual = actual.text
         esperado = "Debes iniciar sesión para agregar productos."
         print(f"++++ ACTUAL CAPTURADO: {actual}")
@@ -42,22 +39,17 @@ class TestOficial:
     # Test 3
     def test_agregar_al_carrito(self):
         self.driver.get(self.base + "login.php")
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//input[@placeholder='Ingresa tu correo']"))).send_keys("cliente@example.com")
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//input[@placeholder='Ingresa tu contraseña']"))).send_keys("12345678")
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//button[@id='btnLogin']"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@placeholder='Ingresa tu correo']"))).send_keys("cliente@example.com")
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@placeholder='Ingresa tu contraseña']"))).send_keys("12345678")
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='btnLogin']"))).click()
         time.sleep(2)
         self.driver.get(self.base + "catalogo.php")
         time.sleep(2)
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//h3[text()='Milanesa']/following-sibling::button[@class='btn']"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//h3[text()='Milanesa']/following-sibling::button[@class='btn']"))).click()
         time.sleep(2)
         self.driver.get(self.base + "views/client/carritoCliente.html")
         time.sleep(2)
-        actual = self.wait.until(EC.visibility_of_element_located(
-            (By.XPATH, "//h4[text()='Milanesa']")))
+        actual = self.wait.until(EC.visibility_of_element_located((By.XPATH, "//h4[text()='Milanesa']")))
         actual = actual.text
         esperado = "Milanesa"
         print(f"++++ ACTUAL CAPTURADO: {actual}")
@@ -66,26 +58,20 @@ class TestOficial:
     # Test 4
     def test_precio_catalogo_vs_carrito(self):
         self.driver.get(self.base + "login.php")
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//input[@placeholder='Ingresa tu correo']"))).send_keys("cliente@example.com")
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//input[@placeholder='Ingresa tu contraseña']"))).send_keys("12345678")
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//button[@id='btnLogin']"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@placeholder='Ingresa tu correo']"))).send_keys("cliente@example.com")
+        self.wait.until(EC.element_to_be_clickable( (By.XPATH, "//input[@placeholder='Ingresa tu contraseña']"))).send_keys("12345678")
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='btnLogin']"))).click()
         time.sleep(2)
         self.driver.get(self.base + "catalogo.php")
         time.sleep(2)
-        precio_catalogo = self.wait.until(EC.visibility_of_element_located(
-            (By.XPATH, "//h3[text()='Milanesa']/following-sibling::div[@class='precio']")))
+        precio_catalogo = self.wait.until(EC.visibility_of_element_located((By.XPATH, "//h3[text()='Milanesa']/following-sibling::div[@class='precio']")))
         precio_catalogo = precio_catalogo.text
         print(f"++++ ACTUAL CAPTURADO: {precio_catalogo}")
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//h3[text()='Milanesa']/following-sibling::button[@class='btn']"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//h3[text()='Milanesa']/following-sibling::button[@class='btn']"))).click()
         time.sleep(2)
         self.driver.get(self.base + "views/client/carritoCliente.html")
         time.sleep(2)
-        precio_carrito = self.wait.until(EC.visibility_of_element_located(
-            (By.XPATH, "//h4[text()='Milanesa']/following-sibling::p[1]")))
+        precio_carrito = self.wait.until(EC.visibility_of_element_located((By.XPATH, "//h4[text()='Milanesa']/following-sibling::p[1]")))
         precio_carrito = precio_carrito.text
         print(f"++++ ACTUAL CAPTURADO: {precio_carrito}")
         esperado = precio_catalogo
@@ -94,17 +80,13 @@ class TestOficial:
     # Test 5
     def test_producto_en_lista_admin(self):
         self.driver.get(self.base + "login.php")
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//input[@placeholder='Ingresa tu correo']"))).send_keys("admin@example.com")
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//input[@placeholder='Ingresa tu contraseña']"))).send_keys("12345678")
-        self.wait.until(EC.element_to_be_clickable(
-            (By.XPATH, "//button[@id='btnLogin']"))).click()
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@placeholder='Ingresa tu correo']"))).send_keys("admin@example.com")
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@placeholder='Ingresa tu contraseña']"))).send_keys("12345678")
+        self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='btnLogin']"))).click()
         time.sleep(2)
         self.driver.get(self.base + "views/admin/productosAdmin.html")
         time.sleep(2)
-        actual = self.wait.until(EC.visibility_of_element_located(
-            (By.XPATH, "//td[text()='Pollo a la canasta']/following-sibling::td[1]")))
+        actual = self.wait.until(EC.visibility_of_element_located((By.XPATH, "//td[text()='Pollo a la canasta']/following-sibling::td[1]")))
         actual = actual.text
         esperado = "Bs 23.00"
         print(f"++++ ACTUAL CAPTURADO: {actual}")
